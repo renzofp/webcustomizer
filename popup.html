@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebCustomizer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <span class="close-btn" id="closeBtn">X</span>
+    <div class="selectSiteDiv input-group">
+      <label for="siteSelector">Select site:</label>
+      <select id="siteSelector">
+        <option value="all">All</option>
+      </select>
+      <button id="addNewSiteBtn">Add New Site</button>
+    </div>
+    <div class="input-group" id="newSiteDiv">
+      <label for="newSiteInput">New Site:</label>
+      <input type="text" id="newSiteInput" placeholder="google.com">
+      <button id="saveNewSiteBtn">Save</button>
+    </div>
+    <div class="input-group">
+      <label for="userStyles">CSS Code:</label>
+      <textarea id="userStyles" placeholder="Your CSS code here"></textarea>
+      <button id="saveCss">Save CSS</button>
+    </div>
+    <div class="input-group">
+      <label for="userScript">JS Code:</label>
+      <textarea id="userScript" placeholder="Your JS code here"></textarea>
+      <button id="saveJS">Save Script</button>
+    </div>
+    <div id="toast" class="hidden"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
