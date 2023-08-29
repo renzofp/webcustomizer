@@ -174,3 +174,7 @@ button:hover {
   width: 100%;
   z-index: 1;
 }
+
+#removeSiteBtn {
+  background-color: #b31600;
+}

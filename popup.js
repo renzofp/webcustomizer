@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-
   // Load saved sites into dropdown
   const loadSites = () => {
     chrome.storage.local.get("sites", (result) => {
@@ -152,5 +151,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // Close popup
   document.getElementById('closeBtn').addEventListener('click', () => {
     window.close();
+  });
+
+  // Remove site
+  const removeSite = (siteToRemove) => {
+    chrome.storage.local.get("sites", (result) => {
+      let savedSites = result.sites || [];
+      savedSites = savedSites.filter(site => site !== siteToRemove);
+
+      chrome.storage.local.set({ "sites": savedSites }, () => {
+        loadSites();
+      });
+    });
+  };
+
+  const removeSiteBtn = document.getElementById("removeSiteBtn");
+
+  removeSiteBtn.addEventListener("click", () => {
+    const selectedSite = elements.siteSelector.value;
+    if (selectedSite !== "all") {
+      removeSite(selectedSite);
+      showNotification(`${selectedSite} removed!`);
+    } else {
+      showNotification('Cant remove ALL option');
+    }
   });
 });
