@@ -1,31 +1,41 @@
-chrome.storage.local.get(['userScript', 'userStyles', 'sites'], function(result) {
+chrome.storage.local.get(['userScript', 'userStyles', 'sites'], (result) => {
   const currentDomain = window.location.hostname;
   const baseDomain = currentDomain.split('.').slice(-2).join('.');
 
-  let userScript = result.userScript || {};
-  let userStyles = result.userStyles || {};
+  const userScript = result.userScript || {};
+  const userStyles = result.userStyles || {};
+
+  const injectScript = (scriptContent) => {
+    const script = document.createElement('script');
+    script.textContent = scriptContent;
+    document.body.appendChild(script);
+  };
+
+  const injectStyles = (cssContent) => {
+    const style = document.createElement('style');
+    if (style.styleSheet) {
+      style.styleSheet.cssText = cssContent;
+    } else {
+      style.appendChild(document.createTextNode(cssContent));
+    }
+    document.head.appendChild(style);
+  };
 
   // Inject 'All' scripts and styles first
   if (userScript["all"]) {
-    eval(userScript["all"]);
+    injectScript(userScript["all"]);
   }
   
   if (userStyles["all"]) {
-    const css = userStyles["all"];
-    var style = document.createElement('style');
-    style.appendChild(document.createTextNode(css));
-    document.head.appendChild(style);
+    injectStyles(userStyles["all"]);
   }
 
-  // Then, check for site-specific scripts/styles
+  // Inject site-specific scripts and styles
   if (userScript[baseDomain]) {
-    eval(userScript[baseDomain]);
+    injectScript(userScript[baseDomain]);
   }
 
   if (userStyles[baseDomain]) {
-    const css = userStyles[baseDomain];
-    var style = document.createElement('style');
-    style.appendChild(document.createTextNode(css));
-    document.head.appendChild(style);
+    injectStyles(userStyles[baseDomain]);
   }
 });

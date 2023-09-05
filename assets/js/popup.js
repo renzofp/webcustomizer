@@ -64,11 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Event listeners
-  elements.addNewSiteBtn.addEventListener("click", () => {
+  elements.addNewSiteBtn.addEventListener("click", (event) => {
+    event.preventDefault();
     elements.newSiteDiv.style.display = "flex";
   });
 
-  elements.saveNewSiteBtn.addEventListener("click", () => {
+  elements.saveNewSiteBtn.addEventListener("click", (event) => {
+    event.preventDefault();
     const newSite = elements.newSiteInput.value;
 
     if (newSite) {
@@ -133,12 +135,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Save JS code
-  document.getElementById('saveJS').addEventListener('click', () => {
+  document.getElementById('saveJS').addEventListener('click', (event) => {
+    event.preventDefault();
     saveData(() => showNotification('JS saved!'));
   });
 
   // Save CSS code
-  document.getElementById('saveCss').addEventListener('click', () => {
+  document.getElementById('saveCss').addEventListener('click', (event) => {
+    event.preventDefault();
     saveData(() => showNotification('CSS saved!'));
   });
 
@@ -161,7 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const removeSiteBtn = document.getElementById("removeSiteBtn");
 
-  removeSiteBtn.addEventListener("click", () => {
+  removeSiteBtn.addEventListener("click", (event) => {
+    event.preventDefault();
     const selectedSite = elements.siteSelector.value;
     if (selectedSite !== "all") {
       removeSite(selectedSite);
