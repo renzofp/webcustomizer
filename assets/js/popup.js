@@ -19,15 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const hostname = url.hostname;
       const baseDomain = hostname.split('.').slice(-2).join('.')
 
-      console.log('url: ' + url);
-      console.log('hostname: ' + hostname);
-
       // Check if baseDomain exists in the dropdown
       const options = Array.from(elements.siteSelector.options);
       const matchingOption = options.find(option => option.value === baseDomain);
-
-      console.log('options: ', options);
-      console.log('matching?: ' + matchingOption);
 
       if (matchingOption) {
         // Set dropdown to the matching option
